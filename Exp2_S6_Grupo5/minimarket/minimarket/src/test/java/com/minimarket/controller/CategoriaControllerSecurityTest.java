@@ -73,19 +73,19 @@ class CategoriaControllerSecurityTest {
                .andExpect(status().isForbidden());
     }
 
-    // Éxito: GERENTE puede eliminar (404 porque no existe en BD de test)
+    // Éxito: GERENTE puede eliminar categoría (id inexistente -> 404)
     @Test
     @WithMockUser(username = "gerente", roles = {"GERENTE"})
     void gerentePuedeEliminarCategoria() throws Exception {
-        mockMvc.perform(delete("/api/categorias/1"))
+        mockMvc.perform(delete("/api/categorias/99999"))
                .andExpect(status().isNotFound());
     }
 
-    // Éxito: ADMIN puede eliminar (404 porque no existe en BD de test)
+    // Éxito: ADMIN puede eliminar categoría (id inexistente -> 404)
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void adminPuedeEliminarCategoria() throws Exception {
-        mockMvc.perform(delete("/api/categorias/1"))
+        mockMvc.perform(delete("/api/categorias/99999"))
                .andExpect(status().isNotFound());
     }
 }
